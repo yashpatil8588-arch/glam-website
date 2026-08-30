@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | GLAM Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>GLAM Admin</h2>
+            <p>Management Panel</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="admin-dashboard.html" class="nav-item active">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="admin-contacts.html" class="nav-item">
+                <i class="fas fa-envelope"></i> Contact Submissions
+                <span class="badge">12</span>
+            </a>
+            <a href="admin-brands.html" class="nav-item">
+                <i class="fas fa-copyright"></i> Manage Brands
+            </a>
+            <a href="admin-services.html" class="nav-item">
+                <i class="fas fa-briefcase"></i> Manage Services
+            </a>
+            <a href="admin-images.html" class="nav-item">
+                <i class="fas fa-images"></i> Image Gallery
+            </a>
+            <a href="admin-content.html" class="nav-item">
+                <i class="fas fa-file-alt"></i> Page Content
+            </a>
+            <a href="admin-settings.html" class="nav-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <a href="index.html" class="nav-item" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Website
+            </a>
+            <a href="#" class="nav-item logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-header">
+            <h1>Dashboard Overview</h1>
+            <div class="admin-user">
+                <i class="fas fa-user-circle"></i>
+                <span id="adminUsername">Admin</span>
+            </div>
+        </header>
+
+        <!-- Dashboard Stats -->
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>12</h3>
+                    <p>New Inquiries</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>1,247</h3>
+                    <p>Total Visitors</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fas fa-copyright"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>47</h3>
+                    <p>Active Brands</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>5</h3>
+                    <p>Global Offices</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="dashboard-section">
+            <h2>Recent Contact Submissions</h2>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Smith</td>
+                            <td>john@example.com</td>
+                            <td><span class="badge badge-brand">Brand Owner</span></td>
+                            <td>Aug 29, 2026</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td>
+                                <button class="btn-action view"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sarah Johnson</td>
+                            <td>sarah@company.com</td>
+                            <td><span class="badge badge-business">Business</span></td>
+                            <td>Aug 28, 2026</td>
+                            <td><span class="status-badge replied">Replied</span></td>
+                            <td>
+                                <button class="btn-action view"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Michael Chen</td>
+                            <td>michael@invest.com</td>
+                            <td><span class="badge badge-investor">Investor</span></td>
+                            <td>Aug 27, 2026</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td>
+                                <button class="btn-action view"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="dashboard-section">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+                <a href="admin-brands.html" class="action-card">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Add New Brand</h3>
+                </a>
+                <a href="admin-services.html" class="action-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Edit Services</h3>
+                </a>
+                <a href="admin-images.html" class="action-card">
+                    <i class="fas fa-upload"></i>
+                    <h3>Upload Images</h3>
+                </a>
+                <a href="admin-content.html" class="action-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Update Content</h3>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Submissions | GLAM Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>GLAM Admin</h2>
+            <p>Management Panel</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="admin-dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="admin-contacts.html" class="nav-item active">
+                <i class="fas fa-envelope"></i> Contact Submissions
+                <span class="badge">12</span>
+            </a>
+            <a href="admin-brands.html" class="nav-item">
+                <i class="fas fa-copyright"></i> Manage Brands
+            </a>
+            <a href="admin-services.html" class="nav-item">
+                <i class="fas fa-briefcase"></i> Manage Services
+            </a>
+            <a href="admin-images.html" class="nav-item">
+                <i class="fas fa-images"></i> Image Gallery
+            </a>
+            <a href="admin-content.html" class="nav-item">
+                <i class="fas fa-file-alt"></i> Page Content
+            </a>
+            <a href="admin-settings.html" class="nav-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <a href="index.html" class="nav-item" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Website
+            </a>
+            <a href="#" class="nav-item logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-header">
+            <h1><i class="fas fa-envelope"></i> Contact Submissions</h1>
+            <div class="admin-user">
+                <i class="fas fa-user-circle"></i>
+                <span id="adminUsername">Admin</span>
+            </div>
+        </header>
+
+        <!-- Filters & Search -->
+        <section class="dashboard-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="display: flex; gap: 15px;">
+                    <select style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px;">
+                        <option>All Types</option>
+                        <option>Brand Owners</option>
+                        <option>Businesses</option>
+                        <option>Strategic Partners</option>
+                        <option>Investors</option>
+                    </select>
+                    <select style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px;">
+                        <option>All Status</option>
+                        <option>New</option>
+                        <option>Replied</option>
+                        <option>Archived</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="searchInput" placeholder="Search submissions..." style="padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; width: 300px;">
+                    <button onclick="exportTableToCSV('contactsTable', 'glam-contacts.csv')" style="padding: 10px 20px; background: #FF6633; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table" id="contactsTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" onclick="selectAll(this)"></th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Company</th>
+                            <th>Type</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>#001</td>
+                            <td>John Smith</td>
+                            <td>john.smith@example.com</td>
+                            <td>Tech Corp</td>
+                            <td><span class="badge badge-brand">Brand Owner</span></td>
+                            <td>Looking to expand our brand into new markets...</td>
+                            <td>Aug 29, 2026</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td>
+                                <button class="btn-action view" onclick="viewSubmission(1)"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;"><i class="fas fa-reply"></i></button>
+                                <button class="btn-action delete" onclick="deleteSubmission(1)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>#002</td>
+                            <td>Sarah Johnson</td>
+                            <td>sarah@company.com</td>
+                            <td>Global Industries</td>
+                            <td><span class="badge badge-business">Business</span></td>
+                            <td>Interested in licensing opportunities for our manufacturing...</td>
+                            <td>Aug 28, 2026</td>
+                            <td><span class="status-badge replied">Replied</span></td>
+                            <td>
+                                <button class="btn-action view" onclick="viewSubmission(2)"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;"><i class="fas fa-reply"></i></button>
+                                <button class="btn-action delete" onclick="deleteSubmission(2)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>#003</td>
+                            <td>Michael Chen</td>
+                            <td>michael@invest.com</td>
+                            <td>Venture Capital Ltd</td>
+                            <td><span class="badge badge-investor">Investor</span></td>
+                            <td>Exploring investment opportunities in brand licensing sector...</td>
+                            <td>Aug 27, 2026</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td>
+                                <button class="btn-action view" onclick="viewSubmission(3)"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;"><i class="fas fa-reply"></i></button>
+                                <button class="btn-action delete" onclick="deleteSubmission(3)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>#004</td>
+                            <td>Emily Rodriguez</td>
+                            <td>emily.r@partners.com</td>
+                            <td>Strategic Partners Inc</td>
+                            <td><span class="badge" style="background: rgba(156, 39, 176, 0.1); color: #9C27B0;">Partner</span></td>
+                            <td>Would like to discuss collaboration opportunities in APAC region...</td>
+                            <td>Aug 26, 2026</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td>
+                                <button class="btn-action view" onclick="viewSubmission(4)"><i class="fas fa-eye"></i></button>
+                                <button class="btn-action" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;"><i class="fas fa-reply"></i></button>
+                                <button class="btn-action delete" onclick="deleteSubmission(4)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: #666;">Showing 4 of 12 submissions</p>
+                <div style="display: flex; gap: 10px;">
+                    <button style="padding: 8px 15px; border: 2px solid #e0e0e0; border-radius: 6px; background: white; cursor: pointer;">Previous</button>
+                    <button style="padding: 8px 15px; border: 2px solid #FF6633; border-radius: 6px; background: #FF6633; color: white; cursor: pointer;">1</button>
+                    <button style="padding: 8px 15px; border: 2px solid #e0e0e0; border-radius: 6px; background: white; cursor: pointer;">2</button>
+                    <button style="padding: 8px 15px; border: 2px solid #e0e0e0; border-radius: 6px; background: white; cursor: pointer;">3</button>
+                    <button style="padding: 8px 15px; border: 2px solid #e0e0e0; border-radius: 6px; background: white; cursor: pointer;">Next</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        // Search functionality
+        searchTable('searchInput', 'contactsTable');
+
+        function selectAll(checkbox) {
+            const checkboxes = document.querySelectorAll('#contactsTable tbody input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+        }
+
+        function viewSubmission(id) {
+            alert(`Viewing submission #${id}\n\nFull details would be displayed in a modal or separate page.`);
+        }
+
+        function deleteSubmission(id) {
+            if (confirmDelete(`Submission #${id}`)) {
+                showSuccess(`Submission #${id} has been deleted.`);
+                // Remove row from table
+            }
+        }
+    </script>
+</body>
+</html>
