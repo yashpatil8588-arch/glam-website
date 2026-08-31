@@ -116,4 +116,56 @@
       if (note) note.textContent = 'Opening your email app… or write to us directly at hello@glamlicensing.com.';
     });
   }
+
+  /* ---------- Brand Scroller (Horizontal scroll / buttons / drag) ---------- */
+  var scroller = document.querySelector('.brand-scroller');
+  if (scroller) {
+    var track = scroller.querySelector('.brand-scroller-track');
+    var btnPrev = scroller.querySelector('.scroller-btn.prev');
+    var btnNext = scroller.querySelector('.scroller-btn.next');
+
+    var getScrollStep = function () {
+      var item = track ? track.querySelector('.brand-slot') : null;
+      return item ? item.offsetWidth + 18 : 240;
+    };
+
+    if (btnPrev && track) {
+      btnPrev.addEventListener('click', function () {
+        track.scrollBy({ left: -getScrollStep() * 2, behavior: 'smooth' });
+      });
+    }
+    if (btnNext && track) {
+      btnNext.addEventListener('click', function () {
+        track.scrollBy({ left: getScrollStep() * 2, behavior: 'smooth' });
+      });
+    }
+
+    /* Mouse drag to scroll */
+    if (track) {
+      var isDown = false;
+      var startX = 0;
+      var scrollLeft = 0;
+
+      track.addEventListener('mousedown', function (e) {
+        isDown = true;
+        track.classList.add('is-dragging');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      window.addEventListener('mouseup', function () {
+        if (!isDown) return;
+        isDown = false;
+        track.classList.remove('is-dragging');
+      });
+
+      track.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - track.offsetLeft;
+        var walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeft - walk;
+      });
+    }
+  }
 })();

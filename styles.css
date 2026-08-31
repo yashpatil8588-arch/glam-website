@@ -444,6 +444,175 @@ a.index-row:hover .body h3,
 .svc:nth-child(even) .media{padding-top:clamp(0px,3vw,44px)}
 
 /* ---------- Brands page ---------- */
+.brand-scroller {
+  margin-top: clamp(2rem, 4vw, 3.2rem);
+  position: relative;
+}
+
+.brand-scroller-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.scroller-controls {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.scroller-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.95rem;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.2s var(--ease);
+}
+
+.scroller-btn:hover {
+  background: var(--ink);
+  color: var(--warm);
+  border-color: var(--ink);
+  transform: scale(1.05);
+}
+
+.scroller-btn:active {
+  transform: scale(0.95);
+}
+
+.brand-scroller-track {
+  display: flex;
+  gap: clamp(14px, 1.6vw, 20px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 2px 14px 2px;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.brand-scroller-track.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+  scroll-behavior: auto;
+}
+
+.brand-scroller-track::-webkit-scrollbar {
+  height: 4px;
+}
+
+.brand-scroller-track::-webkit-scrollbar-track {
+  background: var(--mist);
+  border-radius: 999px;
+}
+
+.brand-scroller-track::-webkit-scrollbar-thumb {
+  background: var(--ink-soft);
+  border-radius: 999px;
+}
+
+.brand-slot {
+  flex: 0 0 clamp(190px, 22vw, 260px);
+  height: clamp(130px, 15vw, 175px);
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-img);
+  border: 1px dashed var(--line);
+  background:
+    linear-gradient(135deg, rgba(19, 19, 17, 0.035) 0%, rgba(19, 19, 17, 0) 50%),
+    var(--neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
+}
+
+.brand-slot:has(img) {
+  border-style: solid;
+  border-color: var(--line-soft);
+  background: var(--paper);
+}
+
+.brand-slot:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  box-shadow: 0 10px 22px -10px rgba(19, 19, 17, 0.14);
+}
+
+.brand-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: inherit;
+  transition: transform 0.5s var(--ease);
+}
+
+.brand-slot:hover img {
+  transform: scale(1.04);
+}
+
+.slot-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+
+.slot-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-align: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.brand-slot:has(img) .slot-empty {
+  display: none;
+}
+
+.slot-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.slot-label {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .cat-row .body{grid-column:2/8}
 .cat-row .tail{grid-column:9/13;align-self:center;color:var(--muted);font-size:var(--fs-small)}
 
