@@ -111,7 +111,7 @@ GLAM operates in:
 - 🇦🇷 **Argentina**
 - 🇮🇳 **India**
 - 🇦🇪 **Dubai**
-- 🇵🇹 **Portugal**
+- 🇬🇧 **London**
 
 ---
 

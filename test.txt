@@ -1,1 +1,141 @@
-﻿hello
+📸 The Master Image Guide
+
+1. Main Office & Team Space
+
+- Filename in Code: images/glam-office.png
+- Aspect Ratio Class: .r-219 (21:9) on Home Page, .r-32 (3:2) on Services Page (Brand Extension)
+- Optimal Size: 2100 × 900 px (make sure subjects are centered so it looks good when cropped to 3:2 layout)
+- Midjourney / Flux Prompt:
+▎ A candid side-profile shot of a small team of diverse modern business consultants collaborating around a large light-wood table in a premium high-end corporate office meeting room. Large floor-to-ceiling windows showing a soft-focus city skyline in the background, warm natural golden morning light, modern minimalistic interior design, navy and cream color accents. Shot on 35mm lens, f/4 aperture, realistic skin textures, cinematic lighting, editorial corporate lifestyle photography, photorealistic --ar 21:9 --style raw
+
+---
+
+2. Services Page Header
+
+- Filename in Code: images/services-banner.png
+- Aspect Ratio Class: .r-219 (21:9) on Services Page
+- Optimal Size: 2100 × 900 px
+- Midjourney / Flux Prompt:
+▎ Sleek architectural shot of a modern glass-walled corporate consulting firm office interior. Sunbeams filtering through large glass windows, soft-focus abstract business strategic diagram on a glass board in the background, a warm light-wood table, high-end Scandinavian design, luxury aesthetic. Shot on 50mm, f/4, shallow depth of field, real photography look, professional corporate --ar 21:9 --style raw
+
+---
+
+3. Brand Portfolio & Licensing
+
+- Filename in Code: images/brand-portfolio.png
+- Aspect Ratio Class: .r-32 (3:2) on Services Page (Brand Licensing), .r-219 (21:9) on Brands Page Hero
+- Optimal Size: 2100 × 900 px (composed with products in the center third so it works in 3:2 as well)
+- Midjourney / Flux Prompt:
+▎ Commercial product layout of premium designer consumer goods, including a sleek smartwatch, high-quality audio headphones, and luxury cosmetics bottles, beautifully displayed on minimalist dark wood and brass shelving inside a luxury retail concept store. Soft warm lighting, elegant luxury branding aesthetic, crisp details, editorial styling. Realistic, shot on Sony A7R IV, f/5.6, commercial product photography --ar 21:9 --style raw
+
+---
+
+4. Brand Strategy & Consulting
+
+- Filename in Code: images/strategy-session.png
+- Aspect Ratio Class: .r-32 (3:2) on Services Page
+- Optimal Size: 1200 × 800 px
+- Midjourney / Flux Prompt:
+▎ Candid photo of two creative design strategists reviewing luxurious mood boards, fabric samples, and brand color palette cards on a large workstation. Soft natural window light, focusing on hands and materials, realistic, warm corporate lifestyle, modern business. Professional camera, f/2.8, shallow depth of field, natural editorial look --ar 3:2 --style raw
+
+---
+
+5. Market Entry & Expansion
+
+- Filename in Code: images/market-analysis.png
+- Aspect Ratio Class: .r-45 (4:5 - Portrait / Vertical) on Services Page
+- Optimal Size: 800 × 1000 px
+- Midjourney / Flux Prompt:
+▎ Vertical portrait of a business professional looking at a tablet showing a minimal global market expansion map and demographic charts. Sitting in a modern high-end airport executive lounge, luxury leather seating, city high-rise out of focus in background, warm evening ambient light. Shot on 50mm, f/2.8, realistic texture, cinematic corporate lifestyle --ar 4:5 --style raw
+
+---
+
+6. Partner Identification & Development
+
+- Filename in Code: images/partnership-meeting.png
+- Aspect Ratio Class: .r-32 (3:2) on Services Page
+- Optimal Size: 1200 × 800 px
+- Midjourney / Flux Prompt:
+▎ Candid close-up of a professional handshake between two business executives, one masculine, one feminine, over a modern dark walnut boardroom table. Soft morning sunlight, glass of water and neat notebook in the background out of focus. Warm color grading, realistic skin details, natural lighting, professional corporate editorial --ar 3:2 --style raw
+
+---
+
+7. Product & Category Development / Market Discovery
+
+- Filename in Code: images/market-discovery.png
+- Aspect Ratio Class: .r-43 (4:3) on Services Page & About Page
+- Optimal Size: 1200 × 900 px
+- Midjourney / Flux Prompt:
+▎ A clean wide-angle shot of high-end consumer goods, smart home electronics, and premium packaged organic lifestyle items neatly arranged in a modern flagship store showroom. Stylized display under warm minimalist spotlight lighting, elegant product design, commercial design and branding showcase. High detail, shot on 35mm lens, f/4, crisp details --ar 4:3
+
+---
+
+8. Retail & E-Commerce / Exhibitions & Events
+
+- Filename in Code: images/exhibitions.png
+- Aspect Ratio Class: .r-32 (3:2) on Services Page, .r-169 (16:9) on About Page
+- Optimal Size: 1600 × 900 px (center the key booth structure for the 3:2 crop)
+- Midjourney / Flux Prompt:
+▎ Wide shot of a prestigious contemporary design exhibition pavilion with clean lines, warm spotlight illumination, architectural product display pods, and corporate visitors networking in the background. Modern structure, premium materials, high-end professional environment. Camera shot, realistic lighting, editorial design magazine style --ar 16:9 --style raw
+
+---
+
+9. International Business Development / Global Meetings
+
+- Filename in Code: images/global-meetings.png
+- Aspect Ratio Class: .r-169 (16:9) on Services Page, .r-32 (3:2) on About Page
+- Optimal Size: 1600 × 900 px (center the meeting setup)
+- Midjourney / Flux Prompt:
+▎ A high-angle view of a professional international business meeting taking place in a luxury glass conference room overlooking a London city-skyline at twilight. Deep blue hour sky, warm gold conference room interior lights, reflections in the windows. Realistic cinematic corporate photography, shot on Sony A7 III, f/4 --ar 16:9 --style raw
+
+---
+
+10. Partner Factory & Facility Visits
+
+- Filename in Code: images/partner-visits.jpeg
+- Aspect Ratio Class: .r-32 (3:2) on About Page
+- Optimal Size: 1200 × 800 px
+- Midjourney / Flux Prompt:
+▎ A professional woman in a crisp coat inspecting a high-tech modern automated assembly workshop or research laboratory with a colleague. Clean, bright, high-end technology manufacturing, soft industrial background, warm and bright lighting. Candid, real photography look, shot on 35mm --ar 3:2 --style raw
+
+---
+
+11. High-Quality Team Headshot Group
+
+- Filename in Code: images/team-photo.png
+- Aspect Ratio Class: .r-43 (4:3) on About Page
+- Optimal Size: 1200 × 900 px
+- Midjourney / Flux Prompt:
+▎ A natural, candid group portrait of four diverse professional business partner consultants laughing and talking in a modern studio setting. Neutral background, soft professional lighting, stylish business-casual outfits in navy, cream, beige, and slate gray. Authentic smiles, realistic skin textures, high quality, shot on 85mm portrait lens --ar 4:3 --style raw
+
+---
+
+12. Corporate People & Culture
+
+- Filename in Code: images/team-culture.png
+- Aspect Ratio Class: .r-219 (21:9) on About Page
+- Optimal Size: 2100 × 900 px
+- Midjourney / Flux Prompt:
+▎ A wide, low-contrast cinematic portrait of diverse professionals chatting in a modern high-ceilinged lounge bar during a firm networking event. Soft amber lighting, elegant warm atmosphere, subtle depth of field. Shot on 35mm, realistic, candid, luxury corporate lifestyle --ar 21:9 --style raw
+
+---
+
+13. Contact Page Hero
+
+- Filename in Code: images/contact-banner.png
+- Aspect Ratio Class: .r-219 (21:9) on Contact Page
+- Optimal Size: 2100 × 900 px
+- Midjourney / Flux Prompt:
+▎ Close-up shot of a modern, upscale corporate reception desk made of luxury warm wood and brass detailing, in a bright sunlit office lobby. Sleek minimalist geometry, architectural green plants in sleek stone pots, warm welcoming atmosphere. Shot on 50mm, f/4, professional corporate realistic photography --ar 21:9 --style raw
+
+---
+
+🛠️ Code Maintenance Notice
+
+While listing these, I identified and fixed a missing bracket typo in the HTML code of services.html on line 195:
+- Before: </figure
+- After: </figure>
+
+The markup will now parse perfectly once you replace your images! Let me know if you would like me to split any shared filenames into unique file references in your HTML so you can generate completely separate layouts for each slot.
+
+✻ Worked for 1m 21s · done 11:51 AM

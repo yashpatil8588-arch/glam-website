@@ -188,7 +188,7 @@ With:
 - Argentina
 - India
 - Dubai
-- Portugal
+- London
 
 ### Contact
 - **Email**: hello@glamlicensing.com
