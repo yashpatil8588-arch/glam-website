@@ -117,46 +117,119 @@
     });
   }
 
-  /* ---------- Brand Scroller (Horizontal scroll / buttons / drag) ---------- */
+  /* ---------- Brand Scroller (Auto-scroll / Infinite Loop / Controls / Drag) ---------- */
   var scroller = document.querySelector('.brand-scroller');
   if (scroller) {
     var track = scroller.querySelector('.brand-scroller-track');
     var btnPrev = scroller.querySelector('.scroller-btn.prev');
     var btnNext = scroller.querySelector('.scroller-btn.next');
 
-    var getScrollStep = function () {
-      var item = track ? track.querySelector('.brand-slot') : null;
-      return item ? item.offsetWidth + 18 : 240;
-    };
-
-    if (btnPrev && track) {
-      btnPrev.addEventListener('click', function () {
-        track.scrollBy({ left: -getScrollStep() * 2, behavior: 'smooth' });
-      });
-    }
-    if (btnNext && track) {
-      btnNext.addEventListener('click', function () {
-        track.scrollBy({ left: getScrollStep() * 2, behavior: 'smooth' });
-      });
-    }
-
-    /* Mouse drag to scroll */
     if (track) {
+      // Clone items for seamless infinite looping
+      var origItems = Array.prototype.slice.call(track.children);
+      var origCount = origItems.length;
+      if (origCount > 0) {
+        origItems.forEach(function (el) {
+          var clone = el.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        });
+      }
+
+      var halfWidth = 0;
+      function updateMetrics() {
+        if (track.children.length > origCount && track.children[origCount]) {
+          halfWidth = track.children[origCount].offsetLeft - track.children[0].offsetLeft;
+        }
+      }
+      updateMetrics();
+      window.addEventListener('resize', updateMetrics, { passive: true });
+      window.addEventListener('load', updateMetrics, { passive: true });
+
+      var getScrollStep = function () {
+        var item = track.querySelector('.brand-slot');
+        return item ? item.offsetWidth + 18 : 240;
+      };
+
+      // State flags for smooth user experience
+      var isHovered = false;
+      var isInteracting = false;
+      var isDragging = false;
+      var isPaused = false;
+      var resumeTimer = null;
+
+      function pauseTemporarily(ms) {
+        isPaused = true;
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () {
+          isPaused = false;
+        }, ms || 3000);
+      }
+
+      // Prev / Next button navigation
+      if (btnPrev) {
+        btnPrev.addEventListener('click', function () {
+          pauseTemporarily(3500);
+          var step = getScrollStep() * 2;
+          if (track.scrollLeft - step < 0 && halfWidth > 0) {
+            track.scrollLeft += halfWidth;
+          }
+          track.scrollBy({ left: -step, behavior: 'smooth' });
+        });
+      }
+
+      if (btnNext) {
+        btnNext.addEventListener('click', function () {
+          pauseTemporarily(3500);
+          var step = getScrollStep() * 2;
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        });
+      }
+
+      // Pause when hovering with mouse
+      scroller.addEventListener('mouseenter', function () {
+        isHovered = true;
+      });
+      scroller.addEventListener('mouseleave', function () {
+        isHovered = false;
+      });
+
+      // Pause during touch interactions
+      track.addEventListener('touchstart', function () {
+        isInteracting = true;
+      }, { passive: true });
+      track.addEventListener('touchend', function () {
+        isInteracting = false;
+        pauseTemporarily(2500);
+      }, { passive: true });
+
+      // Pause when focused (keyboard accessibility)
+      scroller.addEventListener('focusin', function () {
+        isHovered = true;
+      });
+      scroller.addEventListener('focusout', function () {
+        isHovered = false;
+      });
+
+      // Mouse drag to scroll
       var isDown = false;
       var startX = 0;
-      var scrollLeft = 0;
+      var startScrollLeft = 0;
 
       track.addEventListener('mousedown', function (e) {
         isDown = true;
+        isDragging = true;
         track.classList.add('is-dragging');
         startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
+        startScrollLeft = track.scrollLeft;
       });
 
       window.addEventListener('mouseup', function () {
         if (!isDown) return;
         isDown = false;
+        isDragging = false;
         track.classList.remove('is-dragging');
+        pauseTemporarily(2500);
       });
 
       track.addEventListener('mousemove', function (e) {
@@ -164,8 +237,45 @@
         e.preventDefault();
         var x = e.pageX - track.offsetLeft;
         var walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
+        track.scrollLeft = startScrollLeft - walk;
+        if (halfWidth > 0) {
+          if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth;
+          if (track.scrollLeft < 0) track.scrollLeft += halfWidth;
+        }
       });
+
+      // Auto-scroll animation loop (smooth continuous drift)
+      var scrollSpeed = 50; // pixels per second
+      var lastTimestamp = null;
+
+      function autoScroll(timestamp) {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        var elapsed = (timestamp - lastTimestamp) / 1000;
+        lastTimestamp = timestamp;
+
+        // Cap elapsed delta to prevent jumping when waking from background tab
+        if (elapsed > 0.1) elapsed = 0.016;
+
+        if (!reduceMotion && !isHovered && !isInteracting && !isDragging && !isPaused && document.visibilityState === 'visible') {
+          track.scrollLeft += scrollSpeed * elapsed;
+          if (halfWidth > 0 && track.scrollLeft >= halfWidth) {
+            track.scrollLeft -= halfWidth;
+          }
+        } else if (halfWidth > 0) {
+          // Keep scroll position wrapped within bounds during manual scrolling
+          if (track.scrollLeft >= halfWidth * 1.9) {
+            track.scrollLeft -= halfWidth;
+          } else if (track.scrollLeft < 0) {
+            track.scrollLeft += halfWidth;
+          }
+        }
+
+        requestAnimationFrame(autoScroll);
+      }
+
+      if (!reduceMotion) {
+        requestAnimationFrame(autoScroll);
+      }
     }
   }
 })();

@@ -548,8 +548,6 @@ a.index-row:hover .body h3,
   display: flex;
   gap: clamp(14px, 1.6vw, 20px);
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   padding: 4px 2px 14px 2px;
   cursor: grab;
@@ -560,7 +558,6 @@ a.index-row:hover .body h3,
 .brand-scroller-track.is-dragging {
   cursor: grabbing;
   user-select: none;
-  scroll-behavior: auto;
 }
 
 .brand-scroller-track::-webkit-scrollbar {
