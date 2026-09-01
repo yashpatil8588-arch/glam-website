@@ -117,7 +117,7 @@ GLAM operates in:
 
 ## 📧 Contact Information
 
-- **Email**: hello@glamlicensing.com
+- **Email**: ceo@glamlicensing.com
 - **Website**: www.glamlicensing.com
 
 ---
@@ -196,7 +196,7 @@ Add brand cards in `brands.html` following this structure:
 - [ ] Replace placeholder images with actual brand photos
 - [ ] Test contact form backend integration
 - [ ] Add Google Analytics tracking code
-- [ ] Set up email forwarding for hello@glamlicensing.com
+- [ ] Set up email forwarding for ceo@glamlicensing.com
 - [ ] Configure domain DNS settings
 - [ ] Test on multiple browsers (Chrome, Safari, Firefox, Edge)
 - [ ] Test on mobile devices (iOS and Android)

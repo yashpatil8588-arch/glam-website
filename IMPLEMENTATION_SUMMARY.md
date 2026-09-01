@@ -191,7 +191,7 @@ With:
 - London
 
 ### Contact
-- **Email**: hello@glamlicensing.com
+- **Email**: ceo@glamlicensing.com
 - **Website**: www.glamlicensing.com
 
 ---
