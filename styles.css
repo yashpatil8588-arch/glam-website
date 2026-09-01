@@ -863,6 +863,15 @@ a.index-row:hover .body h3,
   padding-block:1.5rem;margin-top:clamp(2.5rem,5vw,4rem);
   font-size:.82rem;color:var(--muted-dark);
 }
+.footer-bottom a{
+  color:inherit;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  transition:color .3s var(--ease);
+}
+.footer-bottom a:hover{
+  color:#f2efe9;
+}
 
 /* ---------- Reveal motion ---------- */
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
