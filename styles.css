@@ -483,7 +483,7 @@ a.index-row:hover .body h3,
   white-space: nowrap;
 }
 .award-row .what {
-  grid-column: 3/10;
+  grid-column: 3/13;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -964,9 +964,8 @@ a.index-row:hover .body h3,
   .index-row .num,.index-row .body,.index-row .arr{grid-column:auto}
   .index-row .arr{opacity:1;transform:none}
 
-  .award-row{grid-template-columns:1fr;gap:1.2rem;align-items:start}
-  .award-row .award-media,.award-row .award-badge-box,.award-row .what,.award-row .big,.award-row .year{grid-column:1;justify-self:start}
-  .award-row .award-media{max-width:320px;width:100%}
+  .award-row{grid-template-columns:auto 1fr;gap:1.5rem;align-items:center}
+  .award-row .award-badge-box,.award-row .what,.award-row .big,.award-row .year{grid-column:auto;justify-self:start}
 
   .svc{grid-template-columns:1fr}
   .svc .num,.svc .body,.svc .media{grid-column:1}
