@@ -406,22 +406,38 @@ a.index-row:hover .body h3,
   border-bottom:1px solid var(--line);
 }
 .sec-dark .awards-list,.sec-dark .award-row{border-color:var(--line-dark)}
-.award-row .award-badge-box {
+.award-row .award-media {
   grid-column: 1/4;
+}
+.award-row .award-photo {
+  border-radius: var(--r-img);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  box-shadow: 0 4px 14px -4px rgba(19, 19, 17, 0.08);
+}
+.award-row:hover .award-photo {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--ink);
+  box-shadow: 0 8px 20px -6px rgba(19, 19, 17, 0.14);
+}
+.award-row .award-badge-box {
+  grid-column: 4/6;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(12px, 1.6vw, 18px) clamp(16px, 2vw, 24px);
+  padding: clamp(12px, 1.4vw, 18px) clamp(12px, 1.6vw, 18px);
   border-radius: var(--r-img);
   background: var(--paper);
   border: 1px solid var(--line);
   box-shadow: 0 4px 12px -4px rgba(19, 19, 17, 0.06);
-  min-width: clamp(100px, 12vw, 140px);
+  min-width: clamp(84px, 9vw, 120px);
   text-align: center;
 }
 .award-row .award-badge-num {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   font-weight: 700;
   letter-spacing: -.035em;
   line-height: 1;
@@ -429,15 +445,16 @@ a.index-row:hover .body h3,
   font-variant-numeric: tabular-nums;
 }
 .award-row .award-badge-tag {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
   margin-top: 4px;
+  white-space: nowrap;
 }
 .award-row .what {
-  grid-column: 4/13;
+  grid-column: 6/13;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -866,8 +883,9 @@ a.index-row:hover .body h3,
   .index-row .num,.index-row .body,.index-row .arr{grid-column:auto}
   .index-row .arr{opacity:1;transform:none}
 
-  .award-row{grid-template-columns:1fr;gap:.8rem;align-items:start}
-  .award-row .award-badge-box,.award-row .what,.award-row .big,.award-row .year{grid-column:1;justify-self:start}
+  .award-row{grid-template-columns:1fr;gap:1.2rem;align-items:start}
+  .award-row .award-media,.award-row .award-badge-box,.award-row .what,.award-row .big,.award-row .year{grid-column:1;justify-self:start}
+  .award-row .award-media{max-width:320px;width:100%}
 
   .svc{grid-template-columns:1fr}
   .svc .num,.svc .body,.svc .media{grid-column:1}
