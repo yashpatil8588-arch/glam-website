@@ -230,20 +230,34 @@ body.nav-open .topbar{background:transparent;border-bottom-color:transparent;-we
 .hero-inner .lead{max-width:30em}
 
 /* ---------- Mega wordmark ---------- */
-.mega-crop{overflow:hidden;line-height:0;margin-top:clamp(3rem,7vw,6rem)}
-.megaword{
-  display:block;width:100%;height:auto;
-  text-align:center;white-space:nowrap;
-  font-weight:600;letter-spacing:-.05em;line-height:.78;
-  font-size:clamp(150px,33.5vw,540px);
-  transform:translateY(15%);
-  color:var(--accent);
-  user-select:none;
+.mega-crop{
+  overflow: visible;
+  line-height: normal;
+  margin-top: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(1rem, 2.5vw, 2.5rem);
 }
-.footer .mega-crop{margin-top:clamp(2.5rem,6vw,5rem)}
+.megaword{
+  display: block;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: 0.95;
+  font-size: clamp(80px, 25vw, 400px);
+  transform: none;
+  color: var(--accent);
+  user-select: none;
+}
+.footer .mega-crop{
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  margin-bottom: 0;
+}
 .footer .megaword{
-  color:transparent;
-  -webkit-text-stroke:1px rgba(244,242,236,.30);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244,242,236,.30);
+  line-height: 0.95;
 }
 @supports not (-webkit-text-stroke:1px black){
   .footer .megaword{color:rgba(244,242,236,.10)}
@@ -826,9 +840,9 @@ a.index-row:hover .body h3,
     overflow: visible;
   }
   .megaword{
-    font-size: clamp(70px, 27vw, 280px);
-    transform: translateY(0);
-    line-height: 0.85;
+    font-size: clamp(60px, 24vw, 280px);
+    transform: none;
+    line-height: 0.95;
   }
 }
 
