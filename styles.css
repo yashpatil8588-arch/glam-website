@@ -402,16 +402,59 @@ a.index-row:hover .body h3,
 .awards-list{border-top:1px solid var(--line)}
 .award-row{
   display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap);
-  align-items:baseline;padding-block:clamp(1.6rem,3vw,2.4rem);
+  align-items:center;padding-block:clamp(1.6rem,3vw,2.4rem);
   border-bottom:1px solid var(--line);
 }
 .sec-dark .awards-list,.sec-dark .award-row{border-color:var(--line-dark)}
+.award-row .award-badge-box {
+  grid-column: 1/4;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 1.6vw, 18px) clamp(16px, 2vw, 24px);
+  border-radius: var(--r-img);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px -4px rgba(19, 19, 17, 0.06);
+  min-width: clamp(100px, 12vw, 140px);
+  text-align: center;
+}
+.award-row .award-badge-num {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.award-row .award-badge-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.award-row .what {
+  grid-column: 4/13;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.award-row .what h3 {
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-weight: 600;
+}
+.award-row .what p {
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
 .award-row .big{
   grid-column:1/5;
   font-size:clamp(2.3rem,5vw,4.2rem);font-weight:600;letter-spacing:-.035em;line-height:1;
   font-variant-numeric:tabular-nums;
 }
-.award-row .what{grid-column:5/11;font-size:clamp(1.05rem,1.5vw,1.25rem);font-weight:500;line-height:1.4}
 .award-row .year{grid-column:11/13;justify-self:end;color:var(--muted);font-variant-numeric:tabular-nums;font-size:var(--fs-small)}
 .sec-dark .award-row .year{color:var(--muted-dark)}
 
@@ -535,9 +578,9 @@ a.index-row:hover .body h3,
 }
 
 .brand-slot {
-  flex: 0 0 clamp(130px, 14vw, 175px);
-  height: clamp(68px, 7.5vw, 88px);
-  padding: clamp(10px, 1.2vw, 14px) clamp(16px, 1.8vw, 22px);
+  flex: 0 0 clamp(240px, 26vw, 340px);
+  height: clamp(130px, 14vw, 170px);
+  padding: clamp(18px, 2vw, 26px) clamp(28px, 3.2vw, 40px);
   scroll-snap-align: start;
   position: relative;
   overflow: hidden;
@@ -659,9 +702,12 @@ a.index-row:hover .body h3,
   border-top:1px solid var(--line);padding-top:1.35rem;
   display:flex;flex-direction:column;gap:.55rem;min-height:9.5rem;
 }
+.sec-dark .prog{border-top-color:var(--line-dark)}
 .prog .label{letter-spacing:.12em}
+.sec-dark .prog .label{color:var(--muted-dark)}
 .prog h3{font-size:clamp(1.25rem,1.8vw,1.6rem)}
 .prog p{color:var(--muted);font-size:var(--fs-small);line-height:1.6}
+.sec-dark .prog p{color:var(--muted-dark)}
 
 /* ---------- About page ---------- */
 .story-steps{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap);margin-top:clamp(2.6rem,5vw,4rem)}
@@ -810,8 +856,8 @@ a.index-row:hover .body h3,
   .index-row .num,.index-row .body,.index-row .arr{grid-column:auto}
   .index-row .arr{opacity:1;transform:none}
 
-  .award-row{grid-template-columns:1fr;gap:.4rem}
-  .award-row .big,.award-row .what,.award-row .year{grid-column:1;justify-self:start}
+  .award-row{grid-template-columns:1fr;gap:.8rem;align-items:start}
+  .award-row .award-badge-box,.award-row .what,.award-row .big,.award-row .year{grid-column:1;justify-self:start}
 
   .svc{grid-template-columns:1fr}
   .svc .num,.svc .body,.svc .media{grid-column:1}
