@@ -544,34 +544,46 @@ a.index-row:hover .body h3,
   transform: scale(0.95);
 }
 
+.brand-scroller-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 6px 0 16px 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+}
+
 .brand-scroller-track {
   display: flex;
+  width: max-content;
   gap: clamp(14px, 1.6vw, 20px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 4px 2px 14px 2px;
-  cursor: grab;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+  animation: brandMarquee 36s linear infinite;
+  will-change: transform;
 }
 
-.brand-scroller-track.is-dragging {
-  cursor: grabbing;
-  user-select: none;
+.brand-scroller-track.reverse {
+  animation-direction: reverse;
 }
 
-.brand-scroller-track::-webkit-scrollbar {
-  height: 4px;
+.brand-scroller-group {
+  display: flex;
+  gap: clamp(14px, 1.6vw, 20px);
+  flex-shrink: 0;
 }
 
-.brand-scroller-track::-webkit-scrollbar-track {
-  background: var(--mist);
-  border-radius: 999px;
+@keyframes brandMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-50% - clamp(7px, 0.8vw, 10px)), 0, 0);
+  }
 }
 
-.brand-scroller-track::-webkit-scrollbar-thumb {
-  background: var(--ink-soft);
-  border-radius: 999px;
+.brand-scroller:hover .brand-scroller-track,
+.brand-scroller:focus-within .brand-scroller-track,
+.brand-scroller.is-paused .brand-scroller-track {
+  animation-play-state: paused;
 }
 
 .brand-slot {

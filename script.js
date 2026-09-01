@@ -117,7 +117,7 @@
     });
   }
 
-  /* ---------- Brand Scroller (Auto-scroll / Infinite Loop / Controls / Drag) ---------- */
+  /* ---------- Brand Scroller (CSS Marquee Controls & Touch Pause) ---------- */
   var scroller = document.querySelector('.brand-scroller');
   if (scroller) {
     var track = scroller.querySelector('.brand-scroller-track');
@@ -125,157 +125,33 @@
     var btnNext = scroller.querySelector('.scroller-btn.next');
 
     if (track) {
-      // Clone items for seamless infinite looping
-      var origItems = Array.prototype.slice.call(track.children);
-      var origCount = origItems.length;
-      if (origCount > 0) {
-        origItems.forEach(function (el) {
-          var clone = el.cloneNode(true);
-          clone.setAttribute('aria-hidden', 'true');
-          track.appendChild(clone);
-        });
-      }
-
-      var halfWidth = 0;
-      function updateMetrics() {
-        if (track.children.length > origCount && track.children[origCount]) {
-          halfWidth = track.children[origCount].offsetLeft - track.children[0].offsetLeft;
-        }
-      }
-      updateMetrics();
-      window.addEventListener('resize', updateMetrics, { passive: true });
-      window.addEventListener('load', updateMetrics, { passive: true });
-
-      var getScrollStep = function () {
-        var item = track.querySelector('.brand-slot');
-        return item ? item.offsetWidth + 18 : 240;
-      };
-
-      // State flags for smooth user experience
-      var isHovered = false;
-      var isInteracting = false;
-      var isDragging = false;
-      var isPaused = false;
-      var resumeTimer = null;
-
-      function pauseTemporarily(ms) {
-        isPaused = true;
-        if (resumeTimer) clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(function () {
-          isPaused = false;
-        }, ms || 3000);
-      }
-
-      // Prev / Next button navigation
       if (btnPrev) {
         btnPrev.addEventListener('click', function () {
-          pauseTemporarily(3500);
-          var step = getScrollStep() * 2;
-          if (track.scrollLeft - step < 0 && halfWidth > 0) {
-            track.scrollLeft += halfWidth;
-          }
-          track.scrollBy({ left: -step, behavior: 'smooth' });
+          track.classList.add('reverse');
+          scroller.classList.remove('is-paused');
         });
       }
 
       if (btnNext) {
         btnNext.addEventListener('click', function () {
-          pauseTemporarily(3500);
-          var step = getScrollStep() * 2;
-          track.scrollBy({ left: step, behavior: 'smooth' });
+          track.classList.remove('reverse');
+          scroller.classList.remove('is-paused');
         });
       }
 
-      // Pause when hovering with mouse
-      scroller.addEventListener('mouseenter', function () {
-        isHovered = true;
-      });
-      scroller.addEventListener('mouseleave', function () {
-        isHovered = false;
-      });
-
-      // Pause during touch interactions
+      // Touch tap toggle pause for mobile devices
+      var touchTimer = null;
       track.addEventListener('touchstart', function () {
-        isInteracting = true;
+        scroller.classList.add('is-paused');
+        if (touchTimer) clearTimeout(touchTimer);
       }, { passive: true });
+
       track.addEventListener('touchend', function () {
-        isInteracting = false;
-        pauseTemporarily(2500);
+        if (touchTimer) clearTimeout(touchTimer);
+        touchTimer = setTimeout(function () {
+          scroller.classList.remove('is-paused');
+        }, 3000);
       }, { passive: true });
-
-      // Pause when focused (keyboard accessibility)
-      scroller.addEventListener('focusin', function () {
-        isHovered = true;
-      });
-      scroller.addEventListener('focusout', function () {
-        isHovered = false;
-      });
-
-      // Mouse drag to scroll
-      var isDown = false;
-      var startX = 0;
-      var startScrollLeft = 0;
-
-      track.addEventListener('mousedown', function (e) {
-        isDown = true;
-        isDragging = true;
-        track.classList.add('is-dragging');
-        startX = e.pageX - track.offsetLeft;
-        startScrollLeft = track.scrollLeft;
-      });
-
-      window.addEventListener('mouseup', function () {
-        if (!isDown) return;
-        isDown = false;
-        isDragging = false;
-        track.classList.remove('is-dragging');
-        pauseTemporarily(2500);
-      });
-
-      track.addEventListener('mousemove', function (e) {
-        if (!isDown) return;
-        e.preventDefault();
-        var x = e.pageX - track.offsetLeft;
-        var walk = (x - startX) * 1.5;
-        track.scrollLeft = startScrollLeft - walk;
-        if (halfWidth > 0) {
-          if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth;
-          if (track.scrollLeft < 0) track.scrollLeft += halfWidth;
-        }
-      });
-
-      // Auto-scroll animation loop (smooth continuous drift)
-      var scrollSpeed = 50; // pixels per second
-      var lastTimestamp = null;
-
-      function autoScroll(timestamp) {
-        if (!lastTimestamp) lastTimestamp = timestamp;
-        var elapsed = (timestamp - lastTimestamp) / 1000;
-        lastTimestamp = timestamp;
-
-        // Cap elapsed delta to prevent jumping when waking from background tab
-        if (elapsed > 0.1) elapsed = 0.016;
-
-        if (!reduceMotion && !isHovered && !isInteracting && !isDragging && !isPaused && document.visibilityState === 'visible') {
-          track.scrollLeft += scrollSpeed * elapsed;
-          if (halfWidth > 0 && track.scrollLeft >= halfWidth) {
-            track.scrollLeft -= halfWidth;
-          }
-        } else if (halfWidth > 0) {
-          // Keep scroll position wrapped within bounds during manual scrolling
-          if (track.scrollLeft >= halfWidth * 1.9) {
-            track.scrollLeft -= halfWidth;
-          } else if (track.scrollLeft < 0) {
-            track.scrollLeft += halfWidth;
-          }
-        }
-
-        requestAnimationFrame(autoScroll);
-      }
-
-      if (!reduceMotion) {
-        requestAnimationFrame(autoScroll);
-      }
     }
   }
 })();
