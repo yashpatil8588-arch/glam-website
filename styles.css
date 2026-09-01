@@ -341,6 +341,44 @@ body.nav-open .topbar{background:transparent;border-bottom-color:transparent;-we
   transform: translateX(6px);
 }
 
+/* ---------- Belief Section (Side-by-Side Statement & Visual) ---------- */
+.belief-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.belief-content {
+  grid-column: 1 / 8;
+  display: flex;
+  flex-direction: column;
+}
+.belief-label {
+  margin-bottom: clamp(1rem, 1.8vw, 1.4rem);
+}
+.belief-statement {
+  font-size: clamp(1.35rem, 2.3vw, 2.05rem);
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.34;
+  color: var(--ink);
+}
+.belief-media {
+  grid-column: 8 / 13;
+}
+.belief-photo {
+  border-radius: var(--r-img);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 18px -4px rgba(19, 19, 17, 0.08);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.belief-grid:hover .belief-photo {
+  transform: translateY(-2px) scale(1.01);
+  border-color: var(--ink);
+  box-shadow: 0 8px 24px -6px rgba(19, 19, 17, 0.14);
+}
+
 /* Numbered editorial index rows (What we do / Services / Why Glam) */
 .index-list{border-top:1px solid var(--line)}
 .sec-dark .index-list{border-color:var(--line-dark)}
@@ -864,6 +902,9 @@ a.index-row:hover .body h3,
   .footer-brand{grid-column:1/13;margin-bottom:2.4rem}
   .footer-col:first-of-type{grid-column:1/5}
   .footer-col{grid-column:span 4}
+  .belief-grid{gap:2.2rem}
+  .belief-content{grid-column:1/8}
+  .belief-media{grid-column:8/13}
 }
 
 @media (max-width:860px){
@@ -909,6 +950,10 @@ a.index-row:hover .body h3,
 
   .cat-row .body{grid-column:2/13}
   .cat-row .tail{display:none}
+
+  .belief-grid{grid-template-columns:1fr;gap:2rem}
+  .belief-content,.belief-media{grid-column:1/-1}
+  .belief-media{max-width:480px;width:100%}
 
   .mega-crop{
     overflow: visible;
