@@ -36,7 +36,7 @@
   --r-pill: 999px;
 
   --pad-x: clamp(20px, 4.5vw, 68px);
-  --sec:   clamp(88px, 11vw, 156px);
+  --sec:   clamp(46px, 5.5vw, 76px);
   --gap:   clamp(16px, 2.2vw, 32px);
 
   --ease: cubic-bezier(.22,.68,0,1);
@@ -77,7 +77,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .svc>*,.journey-item>*,.pillars>*,.story-steps>*,.prog-grid>*,.footer-top>*,
 .brand-row>*,.path-row>*,.award-row>*{min-width:0}
 .section{padding-block:var(--sec)}
-.section-tight{padding-block:clamp(64px,8vw,110px)}
+.section-tight{padding-block:clamp(32px,4vw,56px)}
 
 .rule{border:0;border-top:1px solid var(--line);margin:0}
 .sec-dark .rule{border-color:var(--line-dark)}
@@ -106,7 +106,7 @@ h3{font-size:var(--fs-h3);line-height:1.15}
   display:flex;align-items:baseline;gap:1rem;
   font-size:var(--fs-label);font-weight:500;
   letter-spacing:var(--track-label);text-transform:uppercase;
-  margin-bottom:clamp(2rem,4vw,3.25rem);
+  margin-bottom:clamp(1.2rem,2.2vw,1.8rem);
 }
 .eyebrow .idx{color:var(--muted);font-variant-numeric:tabular-nums}
 .sec-dark .eyebrow .idx{color:var(--muted-dark)}
@@ -224,9 +224,9 @@ body.nav-open .topbar{background:transparent;border-bottom-color:transparent;-we
 .sec-dark .stat .cap{color:var(--muted-dark)}
 
 /* Inner-page hero */
-.hero-inner{padding-top:clamp(150px,18vh,208px);padding-bottom:clamp(56px,7vw,96px)}
-.hero-inner .hero-kicker{margin-bottom:1.5rem}
-.hero-inner h1{max-width:12.5em;margin-bottom:1.9rem}
+.hero-inner{padding-top:clamp(130px,15vh,180px);padding-bottom:clamp(32px,4.5vw,56px)}
+.hero-inner .hero-kicker{margin-bottom:1rem}
+.hero-inner h1{max-width:12.5em;margin-bottom:1.25rem}
 .hero-inner .lead{max-width:30em}
 
 /* ---------- Mega wordmark ---------- */
