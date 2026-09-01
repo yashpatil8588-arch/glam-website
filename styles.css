@@ -600,24 +600,33 @@ a.index-row:hover .body h3,
 }
 
 .brand-scroller-wrap {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
   width: 100%;
   padding: 6px 0 16px 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-y;
+  cursor: grab;
   mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+}
+
+.brand-scroller-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.brand-scroller-wrap.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .brand-scroller-track {
   display: flex;
   width: max-content;
   gap: clamp(14px, 1.6vw, 20px);
-  animation: brandMarquee 36s linear infinite;
-  will-change: transform;
-}
-
-.brand-scroller-track.reverse {
-  animation-direction: reverse;
 }
 
 .brand-scroller-group {
@@ -626,25 +635,10 @@ a.index-row:hover .body h3,
   flex-shrink: 0;
 }
 
-@keyframes brandMarquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(calc(-50% - clamp(7px, 0.8vw, 10px)), 0, 0);
-  }
-}
-
-.brand-scroller:hover .brand-scroller-track,
-.brand-scroller:focus-within .brand-scroller-track,
-.brand-scroller.is-paused .brand-scroller-track {
-  animation-play-state: paused;
-}
-
 .brand-slot {
-  flex: 0 0 clamp(240px, 26vw, 340px);
-  height: clamp(130px, 14vw, 170px);
-  padding: clamp(18px, 2vw, 26px) clamp(28px, 3.2vw, 40px);
+  flex: 0 0 clamp(200px, 24vw, 340px);
+  height: clamp(120px, 13vw, 170px);
+  padding: clamp(16px, 2vw, 26px) clamp(24px, 3.2vw, 40px);
   scroll-snap-align: start;
   position: relative;
   overflow: hidden;
@@ -654,6 +648,8 @@ a.index-row:hover .body h3,
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
 }
 
@@ -678,6 +674,9 @@ a.index-row:hover .body h3,
   object-fit: contain;
   z-index: 1;
   display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
   transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
 }
 
@@ -986,4 +985,9 @@ a.index-row:hover .body h3,
   .footer-col:first-of-type,.footer-col{grid-column:span 6}
   .universe span{font-size:clamp(1.45rem,7vw,2rem)}
   .topbar-inner{height:70px}
+  .brand-slot{
+    flex:0 0 clamp(180px, 58vw, 240px);
+    height:110px;
+    padding:14px 20px;
+  }
 }

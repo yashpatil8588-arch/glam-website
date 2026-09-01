@@ -117,40 +117,166 @@
     });
   }
 
-  /* ---------- Brand Scroller (CSS Marquee Controls & Touch Pause) ---------- */
+  /* ---------- Brand Scroller (Touch, Drag & Infinite Auto-scroll) ---------- */
   var scroller = document.querySelector('.brand-scroller');
   if (scroller) {
+    var wrap = scroller.querySelector('.brand-scroller-wrap');
     var track = scroller.querySelector('.brand-scroller-track');
+    var groups = scroller.querySelectorAll('.brand-scroller-group');
     var btnPrev = scroller.querySelector('.scroller-btn.prev');
     var btnNext = scroller.querySelector('.scroller-btn.next');
 
-    if (track) {
+    if (wrap && track && groups.length >= 2) {
+      var speed = 0.75; // px per frame
+      var direction = 1; // 1 = right, -1 = left
+      var isPaused = false;
+      var isUserInteracting = false;
+      var isDragging = false;
+      var startX = 0;
+      var scrollStart = 0;
+      var resumeTimer = null;
+      var isVisible = true;
+
+      function getGroupWidth() {
+        if (!groups[0]) return 0;
+        var style = window.getComputedStyle(track);
+        var gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+        return groups[0].offsetWidth + gap;
+      }
+
+      // Initialize scroll position to middle group for seamless bidirectional scrolling
+      function initScrollPosition() {
+        var gw = getGroupWidth();
+        if (gw > 0 && wrap.scrollLeft === 0) {
+          wrap.scrollLeft = gw;
+        }
+      }
+
+      // Handle wrapping at edges
+      function checkWrap() {
+        var gw = getGroupWidth();
+        if (gw <= 0) return;
+        if (wrap.scrollLeft >= gw * 2) {
+          wrap.scrollLeft -= gw;
+        } else if (wrap.scrollLeft <= 10) {
+          wrap.scrollLeft += gw;
+        }
+      }
+
+      // Pause interaction timer helper
+      function queueResume(delay) {
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () {
+          isUserInteracting = false;
+        }, delay || 2500);
+      }
+
+      // Scroll listener for wrapping during user touch/drag
+      wrap.addEventListener('scroll', function () {
+        checkWrap();
+      }, { passive: true });
+
+      // Touch events (Mobile phones & tablets)
+      wrap.addEventListener('touchstart', function () {
+        isUserInteracting = true;
+        if (resumeTimer) clearTimeout(resumeTimer);
+      }, { passive: true });
+
+      wrap.addEventListener('touchend', function () {
+        queueResume(2000);
+      }, { passive: true });
+
+      wrap.addEventListener('touchcancel', function () {
+        queueResume(1000);
+      }, { passive: true });
+
+      // Mouse drag to scroll (Desktop)
+      wrap.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return; // primary button only
+        isDragging = true;
+        isUserInteracting = true;
+        startX = e.pageX - wrap.offsetLeft;
+        scrollStart = wrap.scrollLeft;
+        wrap.classList.add('is-dragging');
+        if (resumeTimer) clearTimeout(resumeTimer);
+      });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var x = e.pageX - wrap.offsetLeft;
+        var walk = (x - startX);
+        wrap.scrollLeft = scrollStart - walk;
+      });
+
+      window.addEventListener('mouseup', function () {
+        if (isDragging) {
+          isDragging = false;
+          wrap.classList.remove('is-dragging');
+          queueResume(2000);
+        }
+      });
+
+      // Hover pause for desktop
+      wrap.addEventListener('mouseenter', function () {
+        isPaused = true;
+      });
+
+      wrap.addEventListener('mouseleave', function () {
+        if (!isDragging) {
+          isPaused = false;
+        }
+      });
+
+      // Arrow navigation buttons
       if (btnPrev) {
         btnPrev.addEventListener('click', function () {
-          track.classList.add('reverse');
-          scroller.classList.remove('is-paused');
+          direction = -1;
+          isUserInteracting = true;
+          var step = Math.max(wrap.clientWidth * 0.65, 240);
+          wrap.scrollBy({ left: -step, behavior: 'smooth' });
+          queueResume(3000);
         });
       }
 
       if (btnNext) {
         btnNext.addEventListener('click', function () {
-          track.classList.remove('reverse');
-          scroller.classList.remove('is-paused');
+          direction = 1;
+          isUserInteracting = true;
+          var step = Math.max(wrap.clientWidth * 0.65, 240);
+          wrap.scrollBy({ left: step, behavior: 'smooth' });
+          queueResume(3000);
         });
       }
 
-      // Touch tap toggle pause for mobile devices
-      var touchTimer = null;
-      track.addEventListener('touchstart', function () {
-        scroller.classList.add('is-paused');
-        if (touchTimer) clearTimeout(touchTimer);
-      }, { passive: true });
+      // Visibility observer to save battery/CPU when offscreen
+      if ('IntersectionObserver' in window) {
+        var visObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            isVisible = entry.isIntersecting;
+          });
+        }, { threshold: 0.05 });
+        visObserver.observe(scroller);
+      }
 
-      track.addEventListener('touchend', function () {
-        if (touchTimer) clearTimeout(touchTimer);
-        touchTimer = setTimeout(function () {
-          scroller.classList.remove('is-paused');
-        }, 3000);
+      // Animation loop
+      function step() {
+        if (isVisible && !reduceMotion && !isPaused && !isUserInteracting && !isDragging) {
+          wrap.scrollLeft += speed * direction;
+          checkWrap();
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Start after initial layout
+      window.addEventListener('load', function () {
+        initScrollPosition();
+      });
+      initScrollPosition();
+      requestAnimationFrame(step);
+
+      window.addEventListener('resize', function () {
+        checkWrap();
       }, { passive: true });
     }
   }
