@@ -867,6 +867,12 @@ a.index-row:hover .body h3,
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
 .form-note{margin-top:1.2rem;font-size:var(--fs-small);color:var(--muted);min-height:1.4em}
 
+.contact-aside .contact-profile-card{margin-bottom:2.4rem}
+.contact-aside .profile-photo{max-width:340px;width:100%}
+.contact-aside .profile-meta{margin-top:1rem}
+.contact-aside .profile-name{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;line-height:1.35;color:var(--ink)}
+.contact-aside .profile-company{font-size:var(--fs-small);color:var(--muted);margin-top:.3rem;font-weight:500}
+
 .contact-aside .block{border-top:1px solid var(--line);padding-top:1.3rem;margin-bottom:2.4rem}
 .contact-aside .block .label{display:block;margin-bottom:1rem}
 .contact-aside .offices li{font-size:1.15rem;font-weight:500;padding-block:.3rem}
