@@ -127,7 +127,7 @@
     var btnNext = scroller.querySelector('.scroller-btn.next');
 
     if (wrap && track && groups.length >= 2) {
-      var speed = 0.75; // px per frame
+      var speed = 0.85; // px per baseline frame
       var direction = 1; // 1 = right, -1 = left
       var isPaused = false;
       var isUserInteracting = false;
@@ -136,6 +136,8 @@
       var scrollStart = 0;
       var resumeTimer = null;
       var isVisible = true;
+      var currentPos = 0;
+      var lastTimestamp = null;
 
       function getGroupWidth() {
         if (!groups[0]) return 0;
@@ -147,8 +149,11 @@
       // Initialize scroll position to middle group for seamless bidirectional scrolling
       function initScrollPosition() {
         var gw = getGroupWidth();
-        if (gw > 0 && wrap.scrollLeft === 0) {
-          wrap.scrollLeft = gw;
+        if (gw > 0) {
+          if (wrap.scrollLeft === 0) {
+            wrap.scrollLeft = gw;
+          }
+          currentPos = wrap.scrollLeft;
         }
       }
 
@@ -158,8 +163,10 @@
         if (gw <= 0) return;
         if (wrap.scrollLeft >= gw * 2) {
           wrap.scrollLeft -= gw;
+          currentPos -= gw;
         } else if (wrap.scrollLeft <= 10) {
           wrap.scrollLeft += gw;
+          currentPos += gw;
         }
       }
 
@@ -168,25 +175,37 @@
         if (resumeTimer) clearTimeout(resumeTimer);
         resumeTimer = setTimeout(function () {
           isUserInteracting = false;
+          currentPos = wrap.scrollLeft;
         }, delay || 2500);
       }
 
-      // Scroll listener for wrapping during user touch/drag
+      // Scroll listener for wrapping and position sync during user touch/drag
       wrap.addEventListener('scroll', function () {
         checkWrap();
+        if (isUserInteracting || isDragging) {
+          currentPos = wrap.scrollLeft;
+        }
       }, { passive: true });
 
       // Touch events (Mobile phones & tablets)
       wrap.addEventListener('touchstart', function () {
         isUserInteracting = true;
+        currentPos = wrap.scrollLeft;
         if (resumeTimer) clearTimeout(resumeTimer);
       }, { passive: true });
 
+      wrap.addEventListener('touchmove', function () {
+        isUserInteracting = true;
+        currentPos = wrap.scrollLeft;
+      }, { passive: true });
+
       wrap.addEventListener('touchend', function () {
+        currentPos = wrap.scrollLeft;
         queueResume(2000);
       }, { passive: true });
 
       wrap.addEventListener('touchcancel', function () {
+        currentPos = wrap.scrollLeft;
         queueResume(1000);
       }, { passive: true });
 
@@ -207,12 +226,14 @@
         var x = e.pageX - wrap.offsetLeft;
         var walk = (x - startX);
         wrap.scrollLeft = scrollStart - walk;
+        currentPos = wrap.scrollLeft;
       });
 
       window.addEventListener('mouseup', function () {
         if (isDragging) {
           isDragging = false;
           wrap.classList.remove('is-dragging');
+          currentPos = wrap.scrollLeft;
           queueResume(2000);
         }
       });
@@ -233,8 +254,9 @@
         btnPrev.addEventListener('click', function () {
           direction = -1;
           isUserInteracting = true;
-          var step = Math.max(wrap.clientWidth * 0.65, 240);
-          wrap.scrollBy({ left: -step, behavior: 'smooth' });
+          var stepAmount = Math.max(wrap.clientWidth * 0.65, 240);
+          wrap.scrollBy({ left: -stepAmount, behavior: 'smooth' });
+          currentPos = wrap.scrollLeft - stepAmount;
           queueResume(3000);
         });
       }
@@ -243,8 +265,9 @@
         btnNext.addEventListener('click', function () {
           direction = 1;
           isUserInteracting = true;
-          var step = Math.max(wrap.clientWidth * 0.65, 240);
-          wrap.scrollBy({ left: step, behavior: 'smooth' });
+          var stepAmount = Math.max(wrap.clientWidth * 0.65, 240);
+          wrap.scrollBy({ left: stepAmount, behavior: 'smooth' });
+          currentPos = wrap.scrollLeft + stepAmount;
           queueResume(3000);
         });
       }
@@ -260,9 +283,14 @@
       }
 
       // Animation loop
-      function step() {
-        if (isVisible && !reduceMotion && !isPaused && !isUserInteracting && !isDragging) {
-          wrap.scrollLeft += speed * direction;
+      function step(timestamp) {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        var delta = Math.min((timestamp - lastTimestamp) / 16.67, 2.5);
+        lastTimestamp = timestamp;
+
+        if (isVisible && !isPaused && !isUserInteracting && !isDragging) {
+          currentPos += speed * direction * delta;
+          wrap.scrollLeft = Math.round(currentPos);
           checkWrap();
         }
         requestAnimationFrame(step);

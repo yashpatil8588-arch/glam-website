@@ -617,6 +617,7 @@ a.index-row:hover .body h3,
   -ms-overflow-style: none;
   touch-action: pan-y;
   cursor: grab;
+  scroll-behavior: auto !important;
   mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
 }
@@ -632,23 +633,35 @@ a.index-row:hover .body h3,
 
 .brand-scroller-track {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
   width: max-content;
   gap: clamp(14px, 1.6vw, 20px);
 }
 
 .brand-scroller-group {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
   gap: clamp(14px, 1.6vw, 20px);
   flex-shrink: 0;
+  width: max-content;
 }
 
 .brand-slot {
-  flex: 0 0 clamp(200px, 24vw, 340px);
+  flex: 0 0 auto;
+  width: clamp(200px, 24vw, 340px);
+  min-width: 180px;
+  max-width: 340px;
   height: clamp(120px, 13vw, 170px);
   padding: clamp(16px, 2vw, 26px) clamp(24px, 3.2vw, 40px);
-  scroll-snap-align: start;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  flex-grow: 0;
   border-radius: var(--r-img);
   border: 1px dashed var(--line);
   background: var(--paper);
@@ -1077,8 +1090,12 @@ a.index-row:hover .body h3,
   .universe span{font-size:clamp(1.45rem,7vw,2rem)}
   .topbar-inner{height:70px}
   .brand-slot{
-    flex:0 0 clamp(180px, 58vw, 240px);
-    height:110px;
-    padding:14px 20px;
+    flex: 0 0 auto;
+    width: clamp(170px, 52vw, 220px);
+    min-width: 170px;
+    max-width: 220px;
+    height: 105px;
+    padding: 12px 18px;
+    flex-shrink: 0;
   }
 }
