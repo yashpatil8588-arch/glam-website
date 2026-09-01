@@ -109,11 +109,11 @@
         message.value.trim()
       ].join('\n');
 
-      window.location.href = 'mailto:ceo@glamlicensing.com'
+      window.location.href = 'mailto:sachin@glamlicensing.com'
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(body);
 
-      if (note) note.textContent = 'Opening your email app… or write to us directly at ceo@glamlicensing.com.';
+      if (note) note.textContent = 'Opening your email app… or write to us directly at sachin@glamlicensing.com.';
     });
   }
 
