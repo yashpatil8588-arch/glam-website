@@ -348,6 +348,29 @@ body.nav-open .topbar{background:transparent;border-bottom-color:transparent;-we
   padding-top: clamp(48px, 6vw, 80px);
 }
 
+/* ---------- Role / Positioning Statement Box ---------- */
+.role-sec {
+  padding-block: clamp(28px, 3.8vw, 48px);
+}
+.role-box {
+  display: flex;
+  flex-direction: column;
+}
+.role-label {
+  margin-bottom: clamp(0.55rem, 1vw, 0.85rem);
+}
+.role-statement {
+  font-size: clamp(1.4rem, 2.6vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.32;
+  color: var(--ink);
+  max-width: 38em;
+}
+.brand-cat-sec {
+  padding-top: clamp(32px, 4.4vw, 54px);
+}
+
 /* ---------- Belief Section (Side-by-Side Statement & Visual) ---------- */
 .belief-grid {
   display: grid;
