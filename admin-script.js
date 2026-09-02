@@ -3,8 +3,8 @@ function checkAuth() {
     const isAuthenticated = sessionStorage.getItem('glamAdmin');
     const currentPage = window.location.pathname;
 
-    if (!isAuthenticated && !currentPage.includes('admin-login.html')) {
-        window.location.href = 'admin-login.html';
+    if (!isAuthenticated && !currentPage.includes('admin-login')) {
+        window.location.href = 'admin-login';
     }
 
     // Set username in header
@@ -16,7 +16,7 @@ function checkAuth() {
 }
 
 // Check auth on page load
-if (!window.location.pathname.includes('admin-login.html')) {
+if (!window.location.pathname.includes('admin-login')) {
     checkAuth();
 }
 
@@ -26,7 +26,7 @@ function logout() {
         sessionStorage.removeItem('glamAdmin');
         sessionStorage.removeItem('adminUser');
         localStorage.removeItem('glamAdminRemember');
-        window.location.href = 'admin-login.html';
+        window.location.href = 'admin-login';
     }
 }
 
