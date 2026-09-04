@@ -951,7 +951,7 @@ a.index-row:hover .body h3,
   border-top:1px solid var(--line);
 }
 .contact-details-strip .detail-block{
-  grid-column:span 4;
+  grid-column:span 3;
 }
 .contact-details-strip .detail-block .label{
   display:block;
